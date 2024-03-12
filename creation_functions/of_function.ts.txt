@@ -1,0 +1,32 @@
+import { Observable, of } from 'rxjs';
+
+// of('Melania', 'Ciprian', 'Cristina').subscribe({
+//   next: (values) => console.error(values),
+//   complete: () => console.error('completed'),
+// });
+
+// const names$ = new Observable<string>((subscriber) => {
+//   subscriber.next('Melania');
+//   subscriber.next('Ciprian');
+//   subscriber.next('Cristina');
+//   subscriber.complete();
+// });
+
+// names$.subscribe({
+//   next: (values) => console.error(values),
+//   complete: () => console.error('completed'),
+// });
+
+ourOwnOf('Melania', 'Ciprian', 'Cristina').subscribe({
+  next: (values) => console.log(values),
+  complete: () => console.log('completed'),
+});
+
+function ourOwnOf(...args: string[]): Observable<string> {
+  return new Observable<string>((subscriber) => {
+    for (let i = 0; i < args.length; i++) {
+      subscriber.next(args[i]);
+    }
+    subscriber.complete();
+  });
+}
